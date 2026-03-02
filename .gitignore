@@ -11,7 +11,6 @@ Backend/log/
 Backend/log.json
 Backend/*.db
 Backend/*.db-journal
-Backend/go.sum
 Backend/tmp/
 Backend/test/
 Backend/.env
