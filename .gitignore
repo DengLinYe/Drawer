@@ -1,0 +1,27 @@
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.patch
+
+# Backend
+Backend/*.exe
+Backend/bin/
+Backend/log/
+Backend/log.json
+Backend/*.db
+Backend/*.db-journal
+Backend/go.sum
+Backend/tmp/
+Backend/test/
+Backend/.env
+!Backend/.env.example
+
+# Frontend
+**/node_modules/
+**/dist/
+**/.eslintcache
+Frontend/.env.local
+Frontend/.env.*.local
+
+static/
