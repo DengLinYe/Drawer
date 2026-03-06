@@ -1,109 +1,242 @@
 <template>
-  <div class="drawer-container">
-    <div class="header">
-      <h1>Drawer 工具箱</h1>
-      <p>你的个人专属数字化抽屉</p>
-    </div>
-
-    <div class="tools-grid">
-      <el-card class="tool-card" shadow="hover" @click="goTo('/ledger')">
-        <div class="card-content">
-          <div class="icon">💰</div>
-          <h3>记账本</h3>
-          <p>个人财务管理与收支统计</p>
+  <div class="home">
+    <section class="welcome">
+      <div class="welcome-content">
+        <img src="../assets/Drawer.png" alt="Drawer Logo" class="drawer-logo" />
+        <div class="title-group">
+          <h1 class="drawer-title" data-text="Drawer">Drawer</h1>
+          <div class="divider"></div>
+          <p class="drawer-description" data-text="Curating life's every moment.">Curating life's every moment.</p>
         </div>
-      </el-card>
+      </div>
+    </section>
 
-      <el-card class="tool-card is-disabled" shadow="never">
-        <div class="card-content">
-          <div class="icon">🛠️</div>
-          <h3>敬请期待</h3>
-          <p>更多工具正在开发中...</p>
-        </div>
-      </el-card>
-    </div>
+    <section class="drawers"></section>
   </div>
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router'
 
-const router = useRouter()
-
-const goTo = (path) => {
-  router.push(path)
-}
 </script>
 
-<style scoped>
-.drawer-container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 40px 20px;
+<style>
+/* 背景 */
+.welcome {
+  height: 100vh;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  background-color: #0f172a;
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(47, 58, 76, 0.8) 0%, rgba(15, 23, 42, 1) 100%),
+    linear-gradient(rgb(71, 71, 79) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(71, 71, 79) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
+
+  overflow: hidden;
 }
 
-.header {
-  text-align: center;
-  margin-bottom: 50px;
+/* 欢迎内容 */
+.welcome-content {
+  width: 90vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5vw;
 }
 
-.header h1 {
-  font-size: 2.5rem;
-  color: #303133;
-  margin-bottom: 10px;
+/* Logo部分 */
+.drawer-logo {
+  width: 15vw;
+  height: auto;
+
+  filter: drop-shadow(20px 20px 15px rgba(0, 0, 0, 0.6)) drop-shadow(-2px -2px 10px rgba(255, 255, 255, 0.05));
+
+  animation: logo-enter-desktop 2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-.header p {
-  color: #909399;
-  font-size: 1.1rem;
+@keyframes logo-enter-desktop {
+  0% {
+    transform: perspective(500px) translateZ(150px) translateX(15vw);
+    opacity: 0;
+  }
+
+  100% {
+    transform: perspective(500px) translateZ(20px) translateX(0);
+    opacity: 1;
+  }
 }
 
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 20px;
-}
-
-.tool-card {
-  cursor: pointer;
-  border-radius: 12px;
-  transition: all 0.3s;
-}
-
-.tool-card:hover {
-  transform: translateY(-5px);
-}
-
-.tool-card.is-disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.tool-card.is-disabled:hover {
-  transform: none;
-}
-
-.card-content {
+/* 文字部分 */
+.title-group {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 20px 0;
+
+  opacity: 0;
+  animation: text-enter-desktop 1.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
 }
 
-.icon {
-  font-size: 40px;
-  margin-bottom: 15px;
+@keyframes text-enter-desktop {
+  0% {
+    transform: translateX(-3vw);
+    opacity: 0;
+  }
+
+  40% {
+    transform: translateX(-1vw);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
-h3 {
-  margin: 0 0 10px 0;
-  color: #303133;
-}
-
-p {
+/* 标题 */
+.drawer-title {
+  position: relative;
   margin: 0;
-  color: #606266;
-  font-size: 0.9rem;
+  line-height: 1;
+  font-size: 8vw;
+  font-weight: 900;
+  font-family: 'Arial Black', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: transparent;
+  white-space: nowrap;
+}
+
+/* 标题黑底 */
+.drawer-title::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  z-index: 1;
+  color: #000;
+}
+
+/* 标题文字 */
+.drawer-title::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  background-image: url('../assets/background_word.jpg');
+  background-size: cover;
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 分隔线 */
+.divider {
+  width: 25vw;
+  height: 4px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #FF7E5F, #00C9FF);
+  margin: 10px 0 15px 0;
+}
+
+/* 描述 */
+.drawer-description {
+  position: relative;
+  margin: 0;
+  font-size: 2vw;
+  font-weight: 900;
+  font-family: 'Arial Black', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: transparent;
+  white-space: nowrap;
+}
+
+/* 描述黑底 */
+.drawer-description::before {
+  content: attr(data-text);
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  z-index: 1;
+  color: #000;
+}
+
+/* 描述文字 */
+.drawer-description::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  background-image: url('../assets/background_word.jpg');
+  background-size: cover;
+  background-position: center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 适配 */
+@media (max-width: 768px) {
+  .welcome-content {
+    flex-direction: column;
+    gap: 8vw;
+  }
+
+  .drawer-logo {
+    width: 30vw;
+
+    animation: logo-enter-mobile 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  }
+
+  @keyframes logo-enter-mobile {
+    0% {
+      transform: perspective(500px) translateZ(150px) translateY(15vh);
+      opacity: 0;
+    }
+
+    100% {
+      transform: perspective(500px) translateZ(20px) translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .title-group {
+    align-items: center;
+    text-align: center;
+
+    animation: text-enter-mobile 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    animation-delay: 0.6s;
+  }
+
+  @keyframes text-enter-mobile {
+    0% {
+      transform: translateY(-5vh);
+      opacity: 0;
+    }
+
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .drawer-title {
+    font-size: 15vw;
+  }
+
+  .divider {
+    width: 60vw;
+  }
+
+  .drawer-description {
+    font-size: 4vw;
+  }
 }
 </style>
